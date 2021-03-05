@@ -1,0 +1,23 @@
+
+version: '2'
+services:
+
+  jenkins:
+    build: ./
+    image: jenkins-img:0.0.1
+    container_name: jenkins
+    networks:
+        - vlan
+    volumes:
+        - ./jenkins_home:/var/jenkins_home
+        - ./ansible:/var/ansible
+        - /root/.ssh/:/root/.ssh/
+    restart: always
+    ports:
+        - 8080:8080
+        - 50000:50000
+
+networks:
+  vlan:
+
+
