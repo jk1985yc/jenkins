@@ -6,12 +6,13 @@ services:
     build: ./
     image: jenkins-img:0.0.1
     container_name: jenkins
+    hostname: jenkins
     networks:
         - vlan
     volumes:
         - ./jenkins_home:/var/jenkins_home
         - ./ansible:/var/ansible
-        - /root/.ssh/:/root/.ssh/
+        - /$USER/.ssh/:/$USER/.ssh/
     restart: always
     ports:
         - 8080:8080
