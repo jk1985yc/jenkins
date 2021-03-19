@@ -23,7 +23,7 @@ else
         	# 使用rsync的方式将workspace的代码进行同步到目标主机，并进行软链接到站点根目录
             rsync -raz --delete --progress --exclude=cache --exclude=.git --exclude=.idea ${WORKSPACE}/ $SSH_USER@$node:${VERSION_PATH}/${git}/
             ssh $SSH_USER@$node "rm -rf ${WEB_PATH}"
-            ssh $SSH_USER@$node "ln -sv ${VERSION_PATH}/${git} ${WEB_PATH}"
+            ssh $SSH_USER@$node "cp -R ${VERSION_PATH}/${git} ${WEB_PATH}"
             echo "发布成功......"
         done
     fi
@@ -39,8 +39,8 @@ if [[ ${status} == "Rollback" ]];then
               ssh $SSH_USER@$node "ls -ld ${VERSION_PATH}/${git}"
               res=$(echo $?)
               if [[ $res == 0 ]];then
-                ssh $SSH_USER@$node "unlink ${WEB_PATH}"
-                ssh $SSH_USER@$node "ln -sv ${VERSION_PATH}/${git} ${WEB_PATH}"
+                ssh $SSH_USER@$node "rm -rf ${WEB_PATH}"
+                ssh $SSH_USER@$node "cp -R ${VERSION_PATH}/${git} ${WEB_PATH}"
               else
                   echo "回退版本："${git}"不存在"
                   exit 2
