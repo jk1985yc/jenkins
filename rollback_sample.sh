@@ -34,17 +34,17 @@ if [[ ${status} == "Rollback" ]];then
 
 #对节点列表进行回退版本
         for node in $NODE_LIST
-        do
-            #判断目标主机是否存在回滚的版本
-            ssh $SSH_USER@$node "ls -ld ${VERSION_PATH}/${git}"
-            res=$(echo $?)
-            if [[] $res == 0 ]];then
-                ssh $SSH_USER@$node "rm -rf ${WEB_PATH}"
+          do
+              #判断目标主机是否存在回滚的版本
+              ssh $SSH_USER@$node "ls -ld ${VERSION_PATH}/${git}"
+              res=$(echo $?)
+              if [[ $res == 0 ]];then
+                ssh $SSH_USER@$node "unlink ${WEB_PATH}"
                 ssh $SSH_USER@$node "ln -sv ${VERSION_PATH}/${git} ${WEB_PATH}"
-            else
-                echo "回退版本："${git}"不存在"
-                exit 2
-            fi
+              else
+                  echo "回退版本："${git}"不存在"
+                  exit 2
+              fi
         done
 fi
 
