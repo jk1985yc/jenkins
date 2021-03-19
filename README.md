@@ -1,3 +1,3 @@
 # jenkins
 
-With Jenkins "Choice Parameter" & "String Parameter" Function to Implement Rollback
+SampleBASH With Jenkins "Choice Parameter" & "String Parameter" Function to Implement Rollback
