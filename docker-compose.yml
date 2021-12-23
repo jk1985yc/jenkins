@@ -14,6 +14,9 @@ services:
         - ./ansible:/var/ansible
         - /$USER/.ssh/:/$USER/.ssh/
     restart: always
+    #if need direction servername to host, it will writing to "/etc/hosts"
+    #extra_hosts:
+    #    - "$DomainName:$IP"
     ports:
         - 8080:8080
         - 50000:50000
